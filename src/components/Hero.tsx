@@ -17,7 +17,7 @@ export function Hero({ rotatingTitles }: HeroProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-primary/10 backdrop-blur-md"
+            className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-[#FFD700]/10 backdrop-blur-md"
           />
         </FloatingElement>
         
@@ -26,7 +26,7 @@ export function Hero({ rotatingTitles }: HeroProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-blue-400/10 backdrop-blur-md"
+            className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-black/5 backdrop-blur-md"
           />
         </FloatingElement>
         
@@ -35,7 +35,7 @@ export function Hero({ rotatingTitles }: HeroProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-purple-400/10 backdrop-blur-md"
+            className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-[#FFD700]/10 backdrop-blur-md"
           />
         </FloatingElement>
         
@@ -44,7 +44,7 @@ export function Hero({ rotatingTitles }: HeroProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="w-32 h-32 md:w-48 md:h-48 rounded-full bg-indigo-400/10 backdrop-blur-md"
+            className="w-32 h-32 md:w-48 md:h-48 rounded-full bg-black/5 backdrop-blur-md"
           />
         </FloatingElement>
       </FloatingAnimation>
@@ -57,7 +57,7 @@ export function Hero({ rotatingTitles }: HeroProps) {
             transition={{ duration: 0.6 }}
             className="mb-2 md:mb-3"
           >
-            <span className="text-primary font-medium text-sm md:text-base uppercase tracking-widest">
+            <span className="text-[#FFD700] font-medium text-sm md:text-base uppercase tracking-widest">
               Web Designer & Developer
             </span>
           </motion.div>
@@ -73,6 +73,9 @@ export function Hero({ rotatingTitles }: HeroProps) {
               <TextRotate 
                 texts={rotatingTitles}
                 className="min-w-32 inline-block"
+                mainClassName="overflow-hidden text-[#FFD700]"
+                staggerDuration={0.03}
+                staggerFrom="last"
               />
             </span>
             <br /> web experiences
@@ -95,13 +98,13 @@ export function Hero({ rotatingTitles }: HeroProps) {
           >
             <a 
               href="#projects"
-              className="px-8 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-colors"
+              className="px-8 py-3 bg-[#FFD700] text-black rounded-full font-medium hover:bg-[#FFD700]/90 transition-colors"
             >
               View Projects
             </a>
             <a 
               href="#contact"
-              className="px-8 py-3 border border-gray-300 rounded-full font-medium hover:border-primary hover:text-primary transition-colors"
+              className="px-8 py-3 border border-gray-300 rounded-full font-medium hover:border-[#FFD700] hover:text-[#FFD700] transition-colors"
             >
               Contact Me
             </a>

@@ -32,7 +32,7 @@ export function ProjectCard({
       viewport={{ once: true, margin: "-100px" }}
       className={cn(
         "group overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300",
-        "bg-white border border-gray-100 hover:border-primary/20",
+        "bg-white border border-gray-100 hover:border-[#FFD700]/50",
         className
       )}
     >
@@ -53,11 +53,23 @@ export function ProjectCard({
           {tags.map((tag, i) => (
             <span 
               key={i} 
-              className="px-3 py-1 bg-secondary text-sm rounded-full text-primary/80"
+              className="px-3 py-1 bg-gray-100 text-sm rounded-full text-black"
             >
               {tag}
             </span>
           ))}
+        </div>
+        
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <a 
+            href="#" 
+            className="text-[#FFD700] font-medium hover:underline inline-flex items-center"
+          >
+            View Project
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </motion.div>

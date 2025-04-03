@@ -42,7 +42,7 @@ const Index = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {skills.map((skill, index) => (
                     <div key={index} className="flex items-center">
-                      <CheckCircle2 className="w-5 h-5 text-primary mr-2" />
+                      <CheckCircle2 className="w-5 h-5 text-[#FFD700] mr-2" />
                       <span>{skill}</span>
                     </div>
                   ))}
@@ -57,11 +57,11 @@ const Index = () => {
                 className="w-full md:w-1/2"
               >
                 <div className="relative">
-                  <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary/20 to-blue-500/20 blur-xl opacity-70" />
+                  <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-[#FFD700]/20 to-[#e6c300]/20 blur-xl opacity-70" />
                   <img 
                     src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2976&q=80" 
                     alt="Profile"
-                    className="rounded-xl relative z-10 w-full h-auto"
+                    className="rounded-xl relative z-10 w-full h-auto border-2 border-[#FFD700]/20"
                   />
                 </div>
               </motion.div>
@@ -77,6 +77,18 @@ const Index = () => {
       <footer className="bg-gray-50 py-10">
         <div className="container mx-auto px-4 text-center">
           <p className="text-gray-600">© 2025 Portfolio Website. All rights reserved.</p>
+          
+          <div className="flex justify-center mt-6 space-x-6">
+            {navItems.map((item, index) => (
+              <a 
+                key={index} 
+                href={item.url}
+                className="text-gray-500 hover:text-[#FFD700] transition-colors"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
         </div>
       </footer>
     </div>
