@@ -126,25 +126,46 @@ const ProjectDetails = () => {
                     <Button className="bg-[#FFD700] hover:bg-[#e6c300] text-black">
                       <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
                     </Button>
-                    <Button variant="outline">
-                      <Github className="mr-2 h-4 w-4" /> Source Code
-                    </Button>
+                    {project.githubUrl ? (
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <Button variant="outline">
+                          <Github className="mr-2 h-4 w-4" /> Source Code
+                        </Button>
+                      </a>
+                    ) : (
+                      <Button variant="outline" disabled>
+                        <Github className="mr-2 h-4 w-4" /> Source Code
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
               
               <h2 className="text-2xl font-display font-bold mb-6">Project Screenshots</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <img 
-                  src={project.image} 
-                  alt={`${project.title} - Screenshot 1`}
-                  className="rounded-lg shadow-lg w-full h-auto object-cover"
-                />
-                <img 
-                  src={project.image} 
-                  alt={`${project.title} - Screenshot 2`}
-                  className="rounded-lg shadow-lg w-full h-auto object-cover"
-                />
+                {project.phoneScreenshot ? (
+                  <img 
+                    src={project.phoneScreenshot} 
+                    alt={`${project.title} - Mobile View`}
+                    className="rounded-lg shadow-lg w-full h-auto object-cover"
+                  />
+                ) : (
+                  <div className="rounded-lg bg-gray-100 h-64 flex items-center justify-center">
+                    <p className="text-gray-500">No mobile screenshot available</p>
+                  </div>
+                )}
+                
+                {project.desktopScreenshot ? (
+                  <img 
+                    src={project.desktopScreenshot} 
+                    alt={`${project.title} - Desktop View`}
+                    className="rounded-lg shadow-lg w-full h-auto object-cover"
+                  />
+                ) : (
+                  <div className="rounded-lg bg-gray-100 h-64 flex items-center justify-center">
+                    <p className="text-gray-500">No desktop screenshot available</p>
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>
