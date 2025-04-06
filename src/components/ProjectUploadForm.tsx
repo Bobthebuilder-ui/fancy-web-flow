@@ -14,17 +14,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { toast } from "sonner";
-import { FileImage, Github } from "lucide-react";
-
-interface ProjectFormValues {
-  title: string;
-  description: string;
-  category: string;
-  githubUrl: string;
-  tools: string;
-  tags: string;
-}
+import { Github } from "lucide-react";
+import { ProjectFormValues } from "./ProjectFormTypes";
+import { submitProjectForm } from "./ProjectFormSubmit";
+import { ImageUploader } from "./ImageUploader";
+import { ScreenshotUploaders } from "./ScreenshotUploaders";
 
 export function ProjectUploadForm() {
   const [mainImage, setMainImage] = useState<File | null>(null);
@@ -46,58 +40,25 @@ export function ProjectUploadForm() {
     },
   });
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, setImage: React.Dispatch<React.SetStateAction<File | null>>, setPreview: React.Dispatch<React.SetStateAction<string | null>>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setImage(file);
-      
-      // Create preview URL
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target?.result) {
-          setPreview(e.target.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const onSubmit = (data: ProjectFormValues) => {
-    // Check if main image is uploaded
-    if (!mainImage) {
-      toast.error("Please upload a main image for the project");
-      return;
-    }
-    
-    // Convert comma-separated tags to an array
-    const tagsArray = data.tags.split(',').map(tag => tag.trim());
-    const toolsArray = data.tools.split(',').map(tool => tool.trim());
-    
-    // In a real app, you would upload the files to a server
-    // Here we're using the preview URLs as placeholders
-    const newProject = {
-      id: Date.now(), // Use a timestamp as a temporary ID
-      title: data.title,
-      description: data.description,
-      category: data.category,
-      image: mainImagePreview, // Use the preview URL
-      phoneScreenshot: phonePreview,
-      desktopScreenshot: desktopPreview,
-      githubUrl: data.githubUrl,
-      tags: [...tagsArray, ...toolsArray],
-    };
-    
-    console.log("New project:", newProject);
-    toast.success("Project added successfully!");
-    form.reset();
-    
-    // Reset file inputs
+  const resetImages = () => {
     setMainImage(null);
     setPhoneScreenshot(null);
     setDesktopScreenshot(null);
     setMainImagePreview(null);
     setPhonePreview(null);
     setDesktopPreview(null);
+  };
+
+  const onSubmit = (data: ProjectFormValues) => {
+    submitProjectForm(
+      data,
+      mainImage,
+      mainImagePreview,
+      phonePreview,
+      desktopPreview,
+      form.reset,
+      resetImages
+    );
   };
 
   return (
@@ -229,105 +190,27 @@ export function ProjectUploadForm() {
         
         <div className="space-y-4">
           <div>
-            <FormLabel>Main Project Image</FormLabel>
-            <div className="mt-2 flex items-center gap-4">
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <FileImage className="w-8 h-8 mb-2 text-gray-500" />
-                  <p className="text-sm text-gray-500">
-                    {mainImage ? mainImage.name : "Upload main project image"}
-                  </p>
-                </div>
-                <input 
-                  type="file" 
-                  accept="image/*" 
-                  className="hidden" 
-                  onChange={(e) => handleImageChange(e, setMainImage, setMainImagePreview)}
-                />
-              </label>
-              
-              {mainImagePreview && (
-                <div className="h-32 w-32 relative border rounded-lg overflow-hidden">
-                  <img 
-                    src={mainImagePreview} 
-                    alt="Main project preview" 
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              )}
-            </div>
-            <FormDescription>
-              Upload the main image for your project
-            </FormDescription>
+            <ImageUploader
+              label="Main Project Image"
+              description="Upload the main image for your project"
+              placeholder="Upload main project image"
+              image={mainImage}
+              setImage={setMainImage}
+              preview={mainImagePreview}
+              setPreview={setMainImagePreview}
+            />
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <FormLabel>Phone Screenshot</FormLabel>
-              <div className="mt-2 flex flex-col">
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <FileImage className="w-8 h-8 mb-2 text-gray-500" />
-                    <p className="text-sm text-gray-500">
-                      {phoneScreenshot ? phoneScreenshot.name : "Upload phone screenshot"}
-                    </p>
-                  </div>
-                  <input 
-                    type="file" 
-                    accept="image/*" 
-                    className="hidden" 
-                    onChange={(e) => handleImageChange(e, setPhoneScreenshot, setPhonePreview)}
-                  />
-                </label>
-                
-                {phonePreview && (
-                  <div className="mt-2 h-32 relative border rounded-lg overflow-hidden">
-                    <img 
-                      src={phonePreview} 
-                      alt="Phone screenshot preview" 
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                )}
-              </div>
-              <FormDescription>
-                Upload screenshot of mobile view
-              </FormDescription>
-            </div>
-            
-            <div>
-              <FormLabel>Desktop Screenshot</FormLabel>
-              <div className="mt-2 flex flex-col">
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <FileImage className="w-8 h-8 mb-2 text-gray-500" />
-                    <p className="text-sm text-gray-500">
-                      {desktopScreenshot ? desktopScreenshot.name : "Upload desktop screenshot"}
-                    </p>
-                  </div>
-                  <input 
-                    type="file" 
-                    accept="image/*" 
-                    className="hidden" 
-                    onChange={(e) => handleImageChange(e, setDesktopScreenshot, setDesktopPreview)}
-                  />
-                </label>
-                
-                {desktopPreview && (
-                  <div className="mt-2 h-32 relative border rounded-lg overflow-hidden">
-                    <img 
-                      src={desktopPreview} 
-                      alt="Desktop screenshot preview" 
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                )}
-              </div>
-              <FormDescription>
-                Upload screenshot of desktop view
-              </FormDescription>
-            </div>
-          </div>
+          <ScreenshotUploaders
+            phoneScreenshot={phoneScreenshot}
+            setPhoneScreenshot={setPhoneScreenshot}
+            phonePreview={phonePreview}
+            setPhonePreview={setPhonePreview}
+            desktopScreenshot={desktopScreenshot}
+            setDesktopScreenshot={setDesktopScreenshot}
+            desktopPreview={desktopPreview}
+            setDesktopPreview={setDesktopPreview}
+          />
         </div>
         
         <Button type="submit" className="bg-[#FFD700] hover:bg-[#e6c300] text-black">
