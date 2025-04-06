@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { projects } from "@/lib/data";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
@@ -14,14 +14,19 @@ const ProjectDetails = () => {
   const [project, setProject] = useState<any>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      navigate("/not-found");
+      return;
+    }
     
     const projectId = parseInt(id);
     const foundProject = projects.find(p => p.id === projectId);
     
     if (foundProject) {
       setProject(foundProject);
+      console.log("Project found:", foundProject);
     } else {
+      console.error("Project not found with id:", id);
       navigate("/not-found");
     }
   }, [id, navigate]);
