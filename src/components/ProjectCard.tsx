@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 interface ProjectCardProps {
   title: string;
@@ -10,6 +11,7 @@ interface ProjectCardProps {
   tags: string[];
   className?: string;
   index?: number;
+  id?: number;
 }
 
 export function ProjectCard({ 
@@ -18,7 +20,8 @@ export function ProjectCard({
   image, 
   tags, 
   className,
-  index = 0
+  index = 0,
+  id
 }: ProjectCardProps) {
   return (
     <motion.div
@@ -61,15 +64,15 @@ export function ProjectCard({
         </div>
         
         <div className="mt-4 pt-4 border-t border-gray-100">
-          <a 
-            href="#" 
+          <Link 
+            to={`/project/${id}`}
             className="text-[#FFD700] font-medium hover:underline inline-flex items-center"
           >
             View Project
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </motion.div>

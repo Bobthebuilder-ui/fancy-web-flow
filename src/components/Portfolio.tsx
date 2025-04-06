@@ -66,6 +66,7 @@ export function Portfolio({ projects }: PortfolioProps) {
           {filteredProjects.map((project, index) => (
             <ProjectCard
               key={project.id}
+              id={project.id}
               title={project.title}
               description={project.description}
               image={project.image}
