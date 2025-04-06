@@ -74,7 +74,7 @@ const ProjectDetails = () => {
             </h1>
             
             <div className="flex flex-wrap gap-2 mb-4">
-              {project.tags.map((tag: string, i: number) => (
+              {project.tags && project.tags.map((tag: string, i: number) => (
                 <span 
                   key={i} 
                   className="px-3 py-1 bg-[#FFD700] text-black text-sm rounded-full font-medium"
@@ -109,7 +109,7 @@ const ProjectDetails = () => {
                 <div className="md:w-1/2">
                   <h3 className="text-xl font-bold mb-4">Technologies Used</h3>
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag: string, i: number) => (
+                    {project.tags && project.tags.map((tag: string, i: number) => (
                       <span 
                         key={i} 
                         className="px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full"
@@ -173,6 +173,6 @@ const ProjectDetails = () => {
       </main>
     </div>
   );
-};
+}
 
 export default ProjectDetails;

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -140,7 +139,10 @@ export function ProjectUploadForm() {
               <FormItem>
                 <FormLabel>Tools Used</FormLabel>
                 <FormControl>
-                  <Input placeholder="React, Node.js, MongoDB, etc." {...field} />
+                  <Input 
+                    placeholder="React, Node.js, MongoDB, etc." 
+                    {...field} 
+                  />
                 </FormControl>
                 <FormDescription>
                   Enter tools separated by commas
