@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -15,7 +14,7 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     if (!id) {
-      navigate("/not-found");
+      navigate("/");
       return;
     }
     
@@ -27,7 +26,7 @@ const ProjectDetails = () => {
       console.log("Project found:", foundProject);
     } else {
       console.error("Project not found with id:", id);
-      navigate("/not-found");
+      navigate("/");
     }
   }, [id, navigate]);
 
